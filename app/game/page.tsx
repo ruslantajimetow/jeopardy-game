@@ -1,5 +1,6 @@
 import QuestionDialog from '@/components/shared/question-dialog';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import {
   Table,
   TableBody,
@@ -8,10 +9,18 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { jeopardyCategories } from '@/db/sample-data';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Game section',
+};
 
 export default function Game() {
   return (
-    <div>
+    <div className="mt-7">
+      <div className="flex justify-between">
+        <h2 className="h2-bold mb-2">Game Board</h2>
+      </div>
       <Table>
         <TableCaption>Enjoy Your Game</TableCaption>
         <TableBody>

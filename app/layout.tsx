@@ -1,13 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '@/assets/styles/globals.css';
 import Header from '@/components/shared/header';
 import Footer from '@/components/shared/footer';
+import { APP_DECRIPTION, APP_NAME, SERVER_URL } from '@/lib/constants';
+import { JetBrains_Mono } from 'next/font/google';
+import { Separator } from '@/components/ui/separator';
 
-const inter = Inter({ subsets: ['latin', 'cyrillic'] });
+const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Jeopardy Game',
+  title: {
+    template: '%s | Jeopardy game',
+    default: APP_NAME,
+  },
+  description: APP_DECRIPTION,
+  metadataBase: new URL(SERVER_URL),
 };
 
 export default function RootLayout({
@@ -17,9 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${jetBrainsMono.className} antialiased`}>
         <div className="flex flex-col w-screen h-screen">
           <Header />
+          <Separator />
           <main className="wrapper">{children}</main>
           <Footer />
         </div>
