@@ -1,6 +1,4 @@
 import QuestionDialog from '@/components/shared/question-dialog';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import {
   Table,
   TableBody,
@@ -8,14 +6,16 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui/table';
-import { jeopardyCategories } from '@/db/sample-data';
+import { getAllQuestions } from '@/lib/actions/question.action';
+import { Question } from '@/types';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Game section',
 };
 
-export default function Game() {
+export default async function Game() {
+  const allQuestions = await getAllQuestions();
   return (
     <div className="mt-7">
       <div className="flex justify-between">
@@ -24,12 +24,10 @@ export default function Game() {
       <Table>
         <TableCaption>Enjoy Your Game</TableCaption>
         <TableBody>
-          {jeopardyCategories.map((item, i) => (
-            <TableRow>
-              <TableCell key={i} className="font-medium">
-                {item.category}
-              </TableCell>
-              {item.questions.map((question, i) => (
+          {allQuestions.map((item, i) => (
+            <TableRow key={i}>
+              <TableCell className="font-medium">{item.category}</TableCell>
+              {item.questions.map((question: Question, i) => (
                 <TableCell key={i} className="font-medium">
                   <QuestionDialog
                     triggerTitle={question.score.toString()}

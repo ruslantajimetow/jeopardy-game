@@ -7,7 +7,7 @@ export const insertQuestionsSchema = z.object({
   score: z.number(),
 });
 
-export const insertJeopardyCategoriesSchema = z.object({
+export const insertAllQuestionsSchema = z.object({
   category: z.string().min(1, 'Category is required'),
   questions: z.array(insertQuestionsSchema),
 });

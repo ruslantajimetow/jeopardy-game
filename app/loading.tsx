@@ -3,7 +3,7 @@ import loader from '@/assets/loader.gif';
 
 export default function LoadingPage() {
   return (
-    <div className="w-screen h-screen flex-center">
+    <div className="flex-center">
       <Image
         src={loader}
         height={100}
