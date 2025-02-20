@@ -1,4 +1,18 @@
+import { hashSync } from 'bcrypt-ts-edge';
+
 export const jeopardyCategories = {
+  users: [
+    {
+      name: 'Ruslan',
+      email: 'admin@example.com',
+      password: hashSync('123456', 10),
+    },
+    {
+      name: 'John',
+      email: 'john@example.com',
+      password: hashSync('123456', 10),
+    },
+  ],
   questions: [
     {
       category: 'Geography',
