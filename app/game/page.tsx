@@ -28,7 +28,7 @@ export default async function Game() {
             <TableRow key={i}>
               <TableCell className="font-medium">{item.category}</TableCell>
               {item.questions.map((question: Question, i) => (
-                <TableCell key={i} className="font-medium">
+                <TableCell key={i} className="font-medium text-center">
                   <QuestionDialog
                     triggerTitle={question.score.toString()}
                     question={question.question}

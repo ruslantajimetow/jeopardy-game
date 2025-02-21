@@ -40,7 +40,7 @@ export default function QuestionDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{triggerTitle}</Button>
+        <Button variant="default">{triggerTitle}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

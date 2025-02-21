@@ -5,6 +5,7 @@ import Footer from '@/components/shared/footer';
 import { APP_DECRIPTION, APP_NAME, SERVER_URL } from '@/lib/constants';
 import { JetBrains_Mono } from 'next/font/google';
 import { Separator } from '@/components/ui/separator';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] });
 
@@ -23,14 +24,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${jetBrainsMono.className} antialiased`}>
-        <div className="flex flex-col w-screen h-screen">
-          <Header />
-          <Separator />
-          <main className="wrapper">{children}</main>
-          <Footer />
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col w-screen h-screen">
+            <Header />
+            <Separator />
+            <main className="wrapper">{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

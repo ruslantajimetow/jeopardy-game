@@ -8,6 +8,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { auth } from '@/auth';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 export default async function UserButton() {
   const randomId = Math.floor(Math.random() * 1000);
@@ -31,9 +33,16 @@ export default async function UserButton() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Results</DropdownMenuItem>
-        <DropdownMenuItem>Theme</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button variant="link" asChild>
+            <Link href="/user/profile">Profile</Link>
+          </Button>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button variant="link" asChild>
+            <Link href="/results">Results</Link>
+          </Button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

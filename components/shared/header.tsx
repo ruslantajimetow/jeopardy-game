@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import { auth } from '@/auth';
 import UserButton from './user-button';
+import { ThemeModeToggle } from './theme-button';
 
 export default async function Header() {
   const session = await auth();
@@ -15,7 +16,9 @@ export default async function Header() {
           </h1>
         </div>
         <div className="flex items-center gap-2">
-          <div>Theme</div>
+          <div>
+            <ThemeModeToggle />
+          </div>
           {session?.user ? (
             <>
               <UserButton />
