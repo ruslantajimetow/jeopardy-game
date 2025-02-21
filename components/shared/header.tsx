@@ -21,10 +21,7 @@ export default async function Header() {
           </div>
           {session?.user ? (
             <>
-              <UserButton
-                userName={session?.user?.name!}
-                email={session?.user?.email!}
-              />
+              <UserButton />
             </>
           ) : (
             <div>

@@ -11,14 +11,10 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { LogOutIcon, NotebookIcon, UserIcon } from 'lucide-react';
 import { signOutAction } from '@/lib/actions/user.actions';
+import { auth } from '@/auth';
 
-export default function UserButton({
-  userName,
-  email,
-}: {
-  userName: string;
-  email: string;
-}) {
+export default async function UserButton() {
+  const session = await auth();
   const randomId = Math.floor(Math.random() * 1000);
   const randomImageUrl = `https://picsum.photos/100?random=${randomId}`;
   return (
@@ -32,8 +28,10 @@ export default function UserButton({
       <DropdownMenuContent className="w-[300px]">
         <DropdownMenuLabel>
           <div className="flex flex-col items-center justify-center p-2">
-            <span className="font-bold">{userName}</span>
-            <span className="text-muted-foreground">{email}</span>
+            <span className="font-bold">{session?.user?.name}</span>
+            <span className="text-muted-foreground">
+              {session?.user?.email}
+            </span>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
