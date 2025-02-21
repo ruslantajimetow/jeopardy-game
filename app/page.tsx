@@ -1,8 +1,9 @@
+import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="flex-center flex-col space-y-20 mt-10">
       <Button asChild>

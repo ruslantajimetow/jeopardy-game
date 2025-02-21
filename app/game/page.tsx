@@ -26,7 +26,9 @@ export default async function Game() {
         <TableBody>
           {allQuestions.map((item, i) => (
             <TableRow key={i}>
-              <TableCell className="font-medium">{item.category}</TableCell>
+              <TableCell className="font-medium text-center">
+                {item.category}
+              </TableCell>
               {item.questions.map((question: Question, i) => (
                 <TableCell key={i} className="font-medium text-center">
                   <QuestionDialog

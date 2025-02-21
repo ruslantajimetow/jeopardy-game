@@ -15,13 +15,16 @@ export default async function Header() {
             <Link href="/">JEOPARDY</Link>
           </h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-5">
           <div>
             <ThemeModeToggle />
           </div>
           {session?.user ? (
             <>
-              <UserButton />
+              <UserButton
+                userName={session?.user?.name!}
+                email={session?.user?.email!}
+              />
             </>
           ) : (
             <div>

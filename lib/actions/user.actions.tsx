@@ -54,8 +54,6 @@ export const signUpAction = async (prevState: unknown, formData: FormData) => {
       password: user.password,
     });
 
-    redirect('/');
-
     return { success: true, message: 'Signed up successfully' };
   } catch (error) {
     if (isRedirectError(error)) {
