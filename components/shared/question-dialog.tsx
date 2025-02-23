@@ -72,7 +72,7 @@ export default function QuestionDialog({
     setOpen(false);
   };
 
-  const answeredQuestions = userResult.questions;
+  const answeredQuestions = (userResult && userResult.questions) || [];
   const isQuestionAnswered =
     userResult &&
     answeredQuestions.some((item: any) => item.question === question);

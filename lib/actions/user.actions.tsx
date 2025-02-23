@@ -6,7 +6,6 @@ import { hashSync } from 'bcrypt-ts-edge';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { formatError } from '../utils';
 import { signInFormSchema, signUpFormSchema } from '../validators';
-import { redirect } from 'next/navigation';
 
 export const signInAction = async (prevState: unknown, formData: FormData) => {
   try {
@@ -16,7 +15,6 @@ export const signInAction = async (prevState: unknown, formData: FormData) => {
     });
     await signIn('credentials', user);
 
-    redirect('/');
     return { success: true, message: 'Signed in successfully' };
   } catch (error) {
     if (isRedirectError(error)) {

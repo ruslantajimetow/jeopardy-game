@@ -15,14 +15,13 @@ import { auth } from '@/auth';
 
 export default async function UserButton() {
   const session = await auth();
-  const randomId = Math.floor(Math.random() * 1000);
-  const randomImageUrl = `https://picsum.photos/100?random=${randomId}`;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="focus-visible:ring-0 focus-visible:ring-offset-0 cursor-pointer">
-          <AvatarImage src={randomImageUrl} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            {session?.user?.name?.slice(0, 1).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[300px]">
