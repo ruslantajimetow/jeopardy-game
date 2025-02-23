@@ -1,6 +1,7 @@
 import {
   insertAllQuestionsSchema,
   insertQuestionsSchema,
+  insertUserDBResult,
 } from '@/lib/validators';
 import { z } from 'zod';
 
@@ -9,3 +10,7 @@ export type AllQuestions = z.infer<typeof insertAllQuestionsSchema> & {
 };
 
 export type Question = z.infer<typeof insertQuestionsSchema>;
+export type UserResult = z.infer<typeof insertUserDBResult> & {
+  id: number;
+  createdAt: Date;
+};

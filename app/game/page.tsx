@@ -8,6 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getAllQuestions } from '@/lib/actions/question.action';
+import { getResultsByUserId } from '@/lib/actions/result.actions';
 import { Question } from '@/types';
 import { Metadata } from 'next';
 
@@ -20,6 +21,7 @@ export default async function Game() {
   const session = await auth();
   if (!session) throw new Error('User unauthorized');
   const userId = session?.user?.id;
+  const userResult = await getResultsByUserId(userId!);
   return (
     <div className="mt-7">
       <div className="flex justify-between">
@@ -43,6 +45,7 @@ export default async function Game() {
                     userId={userId!}
                     score={question.score}
                     correctAnswer={question.correctAnswer}
+                    userResult={userResult}
                   />
                 </TableCell>
               ))}

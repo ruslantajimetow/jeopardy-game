@@ -24,6 +24,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { insertUserResultSchema } from '@/lib/validators';
 import { submitResults } from '@/lib/actions/question.action';
+import { UserResult } from '@/types';
+import { useState } from 'react';
 
 export default function QuestionDialog({
   triggerTitle,
@@ -33,6 +35,7 @@ export default function QuestionDialog({
   userId,
   score,
   correctAnswer,
+  userResult,
 }: {
   triggerTitle: string;
   question: string;
@@ -41,7 +44,9 @@ export default function QuestionDialog({
   userId: string;
   score: number;
   correctAnswer: string;
+  userResult: UserResult;
 }) {
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof insertUserResultSchema>>({
     resolver: zodResolver(insertUserResultSchema),
     defaultValues: {
@@ -64,11 +69,22 @@ export default function QuestionDialog({
     const updatedValues = form.getValues();
     console.log(updatedValues);
     const res = await submitResults(updatedValues);
+    setOpen(false);
   };
+
+  const isQuestionAnswered =
+    userResult &&
+    userResult.questions.some((item) => item.question === question);
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button variant="default">{triggerTitle}</Button>
+        <Button
+          onClick={() => setOpen(true)}
+          disabled={isQuestionAnswered}
+          variant="default"
+        >
+          {triggerTitle}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

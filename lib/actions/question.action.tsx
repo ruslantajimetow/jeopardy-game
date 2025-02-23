@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { insertUserResultSchema } from '../validators';
 import { formatError } from '../utils';
 import { InputJsonValue } from '@prisma/client/runtime/library';
+import { revalidatePath } from 'next/cache';
 
 export const getAllQuestions = async () => {
   const data = await prisma.questions.findMany({
@@ -26,6 +27,7 @@ export const submitResults = async (
       question: result.question,
       answer: result.answer,
       score: result.score,
+      isCorrect: result.isCorrect,
     };
 
     const existingUserResult = await prisma.result.findFirst({
@@ -53,6 +55,8 @@ export const submitResults = async (
         },
       });
     }
+
+    revalidatePath('/game');
 
     return {
       success: true,
