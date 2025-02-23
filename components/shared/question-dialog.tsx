@@ -20,23 +20,51 @@ import {
 } from '../ui/form';
 import { useForm } from 'react-hook-form';
 import { Separator } from '../ui/separator';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { insertUserResultSchema } from '@/lib/validators';
+import { submitResults } from '@/lib/actions/question.action';
 
 export default function QuestionDialog({
   triggerTitle,
   question,
   answers,
   categoryName,
+  userId,
+  score,
+  correctAnswer,
 }: {
   triggerTitle: string;
   question: string;
   answers: string[];
   categoryName: string;
+  userId: string;
+  score: number;
+  correctAnswer: string;
 }) {
-  const form = useForm({
+  const form = useForm<z.infer<typeof insertUserResultSchema>>({
+    resolver: zodResolver(insertUserResultSchema),
     defaultValues: {
       answer: '',
+      question: question,
+      userId: userId,
+      score: 0,
     },
   });
+
+  const onSubmit = async () => {
+    form.setValue('userId', userId);
+    if (form.getValues('answer') === correctAnswer) {
+      form.setValue('score', score);
+      form.setValue('isCorrect', true);
+    } else {
+      form.setValue('score', 0);
+      form.setValue('isCorrect', false);
+    }
+    const updatedValues = form.getValues();
+    console.log(updatedValues);
+    const res = await submitResults(updatedValues);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -49,7 +77,7 @@ export default function QuestionDialog({
         </DialogHeader>
         <Separator />
         <Form {...form}>
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="answer"
@@ -58,6 +86,7 @@ export default function QuestionDialog({
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
+                      value={field.value}
                       className="grid grid-cols-2 space-y-2 mx-auto"
                     >
                       {answers.map((ans) => {

@@ -32,6 +32,7 @@ model User {
 
   accounts Account[]
   session  Session[]
+  Result   Result[]
 }
 
 model Account {
@@ -71,4 +72,12 @@ model VerificationToken {
   expires    DateTime @db.Timestamp(6)
 
   @@id([identifier, token])
+}
+
+model Result {
+  id        Int      @id @default(autoincrement())
+  userId    String   @db.Uuid
+  questions Json[]
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

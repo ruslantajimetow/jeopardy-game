@@ -1,3 +1,4 @@
+import { auth } from '@/auth';
 import QuestionDialog from '@/components/shared/question-dialog';
 import {
   Table,
@@ -16,6 +17,9 @@ export const metadata: Metadata = {
 
 export default async function Game() {
   const allQuestions = await getAllQuestions();
+  const session = await auth();
+  if (!session) throw new Error('User unauthorized');
+  const userId = session?.user?.id;
   return (
     <div className="mt-7">
       <div className="flex justify-between">
@@ -36,6 +40,9 @@ export default async function Game() {
                     question={question.question}
                     answers={question.answers}
                     categoryName={item.category}
+                    userId={userId!}
+                    score={question.score}
+                    correctAnswer={question.correctAnswer}
                   />
                 </TableCell>
               ))}

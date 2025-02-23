@@ -16,7 +16,8 @@ export const insertUserResultSchema = z.object({
   userId: z.string().min(1, 'User id is equired'),
   question: z.string().min(1, 'Question is equired'),
   score: z.number(),
-  isCorrect: z.boolean(),
+  answer: z.string().min(1, 'Answer is required'),
+  isCorrect: z.boolean().optional(),
 });
 
 export const signInFormSchema = z.object({
