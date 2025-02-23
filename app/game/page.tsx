@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import { getAllQuestions } from '@/lib/actions/question.action';
 import { getResultsByUserId } from '@/lib/actions/result.actions';
-import { Question } from '@/types';
+import { Question, UserResult } from '@/types';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -45,7 +45,7 @@ export default async function Game() {
                     userId={userId!}
                     score={question.score}
                     correctAnswer={question.correctAnswer}
-                    userResult={userResult}
+                    userResult={userResult as UserResult}
                   />
                 </TableCell>
               ))}

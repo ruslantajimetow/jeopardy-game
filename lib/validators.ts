@@ -25,6 +25,13 @@ export const insertUserDBResult = z.object({
   questions: z.array(z.string()),
 });
 
+export const insertResultQuestionsSchema = z.object({
+  question: z.string(),
+  answer: z.string(),
+  score: z.number(),
+  isCorrect: z.boolean().optional(),
+});
+
 export const signInFormSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters long'),
