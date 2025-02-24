@@ -83,6 +83,7 @@ export default function QuestionDialog({
       duration: 2000,
     });
     setOpen(false);
+    form.setValue('answer', '');
   };
 
   const answeredQuestions: ResultQuestion[] = userResult?.questions;
