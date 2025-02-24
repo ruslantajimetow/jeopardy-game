@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import QuestionDialog from '@/components/shared/question-dialog';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -8,9 +9,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getAllQuestions } from '@/lib/actions/question.action';
-import { getResultsByUserId } from '@/lib/actions/result.actions';
+import { getResultsByUserId, startNewGame } from '@/lib/actions/result.actions';
 import { Question, UserResult } from '@/types';
 import { Metadata } from 'next';
+import { toast } from 'sonner';
+import StartNewGame from './start-new-game-btn';
 
 export const metadata: Metadata = {
   title: 'Game section',
@@ -22,10 +25,14 @@ export default async function Game() {
   if (!session) throw new Error('User unauthorized');
   const userId = session?.user?.id;
   const userResult = await getResultsByUserId(userId!);
+
   return (
     <div className="mt-7">
       <div className="flex justify-between">
         <h2 className="h2-bold mb-2">Game Board</h2>
+        {userResult && userResult.questions.length > 0 && (
+          <StartNewGame userId={userId!} />
+        )}
       </div>
       <Table>
         <TableCaption>Enjoy Your Game</TableCaption>

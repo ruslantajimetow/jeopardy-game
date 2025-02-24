@@ -6,7 +6,7 @@ export default async function Home() {
   return (
     <div className="flex-center flex-col space-y-20 mt-10">
       <Button asChild>
-        <Link href="/game">Start game</Link>
+        <Link href="/game">Game</Link>
       </Button>
       <Image
         src="/images/jeopardy.png"
