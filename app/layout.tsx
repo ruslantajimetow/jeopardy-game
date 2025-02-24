@@ -6,6 +6,7 @@ import { APP_DECRIPTION, APP_NAME, SERVER_URL } from '@/lib/constants';
 import { JetBrains_Mono } from 'next/font/google';
 import { Separator } from '@/components/ui/separator';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] });
 
@@ -37,6 +38,7 @@ export default function RootLayout({
             <Separator />
             <main className="wrapper">{children}</main>
             <Footer />
+            <Toaster />
           </div>
         </ThemeProvider>
       </body>

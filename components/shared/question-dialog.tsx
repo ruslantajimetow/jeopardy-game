@@ -24,8 +24,9 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { insertUserResultSchema } from '@/lib/validators';
 import { submitResults } from '@/lib/actions/question.action';
-import { UserResult, ResultQuestion } from '@/types';
+import { UserResult } from '@/types';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function QuestionDialog({
   triggerTitle,
@@ -59,16 +60,28 @@ export default function QuestionDialog({
 
   const onSubmit = async () => {
     form.setValue('userId', userId);
+    let message = '';
     if (form.getValues('answer') === correctAnswer) {
       form.setValue('score', score);
       form.setValue('isCorrect', true);
+      message = `Wow, you earned ${score}`;
     } else {
       form.setValue('score', 0);
       form.setValue('isCorrect', false);
+      message = `Oops, you gotta learn`;
     }
     const updatedValues = form.getValues();
-    console.log(updatedValues);
     const res = await submitResults(updatedValues);
+    if (!res.success) {
+      toast.error('Something went wrong', {
+        description: res.message,
+        duration: 2000,
+      });
+    }
+    toast.success(res.message, {
+      description: message,
+      duration: 2000,
+    });
     setOpen(false);
   };
 
@@ -77,7 +90,7 @@ export default function QuestionDialog({
     userResult &&
     answeredQuestions.some((item: any) => item.question === question);
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           onClick={() => setOpen(true)}
