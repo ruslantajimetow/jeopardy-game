@@ -9,7 +9,14 @@ export const getResultsByUserId = async (userId: string) => {
     where: { userId },
   });
 
-  return JSON.parse(JSON.stringify(result)) as UserResult;
+  return {
+    result: (JSON.parse(JSON.stringify(result)) as UserResult) || {
+      id: 0,
+      userId: '',
+      questions: [],
+      createdAt: null,
+    },
+  };
 };
 
 export const startNewGame = async (userId: string) => {

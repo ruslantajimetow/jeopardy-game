@@ -1,6 +1,5 @@
 import { auth } from '@/auth';
 import QuestionDialog from '@/components/shared/question-dialog';
-import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -9,10 +8,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getAllQuestions } from '@/lib/actions/question.action';
-import { getResultsByUserId, startNewGame } from '@/lib/actions/result.actions';
+import { getResultsByUserId } from '@/lib/actions/result.actions';
 import { Question, UserResult } from '@/types';
 import { Metadata } from 'next';
-import { toast } from 'sonner';
 import StartNewGame from './start-new-game-btn';
 
 export const metadata: Metadata = {
@@ -24,12 +22,17 @@ export default async function Game() {
   const session = await auth();
   if (!session) throw new Error('User unauthorized');
   const userId = session?.user?.id;
-  const userResult = await getResultsByUserId(userId!);
-
+  const data = await getResultsByUserId(userId!);
+  const userResult = data.result;
   return (
     <div className="mt-7">
       <div className="flex justify-between">
         <h2 className="h2-bold mb-2">Game Board</h2>
+        {userResult && userResult.questions.length > 0 && (
+          <div className="font-semibold text-xl">
+            {userResult.questions.reduce((p, c) => p + c.score, 0)} Points
+          </div>
+        )}
         {userResult && userResult.questions.length > 0 && (
           <StartNewGame userId={userId!} />
         )}

@@ -20,16 +20,16 @@ export const insertUserResultSchema = z.object({
   isCorrect: z.boolean().optional(),
 });
 
-export const insertUserDBResult = z.object({
-  userId: z.string().min(1, 'User id is equired'),
-  questions: z.array(z.string()),
-});
-
 export const insertResultQuestionsSchema = z.object({
   question: z.string(),
   answer: z.string(),
   score: z.number(),
-  isCorrect: z.boolean().optional(),
+  isCorrect: z.boolean(),
+});
+
+export const insertUserDBResult = z.object({
+  userId: z.string().min(1, 'User id is equired'),
+  questions: z.array(insertResultQuestionsSchema),
 });
 
 export const signInFormSchema = z.object({

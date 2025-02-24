@@ -24,7 +24,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { insertUserResultSchema } from '@/lib/validators';
 import { submitResults } from '@/lib/actions/question.action';
-import { UserResult } from '@/types';
+import { ResultQuestion, UserResult } from '@/types';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -85,10 +85,10 @@ export default function QuestionDialog({
     setOpen(false);
   };
 
-  const answeredQuestions = (userResult && userResult.questions) || [];
-  const isQuestionAnswered =
-    userResult &&
-    answeredQuestions.some((item: any) => item.question === question);
+  const answeredQuestions: ResultQuestion[] = userResult?.questions;
+  const isQuestionAnswered = answeredQuestions.some(
+    (item) => item.question === question
+  );
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>

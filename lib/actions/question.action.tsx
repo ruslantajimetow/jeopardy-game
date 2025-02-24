@@ -21,7 +21,6 @@ export const submitResults = async (
 ) => {
   try {
     const result = insertUserResultSchema.parse(data);
-    console.log(data);
 
     const questionData = {
       question: result.question,
