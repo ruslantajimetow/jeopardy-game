@@ -26,7 +26,10 @@ export const startNewGame = async (userId: string) => {
     });
 
     if (existingUserResult) {
-      await prisma.result.delete({ where: { id: existingUserResult.id } });
+      await prisma.result.update({
+        where: { id: existingUserResult.id },
+        data: { questions: [] },
+      });
     }
 
     revalidatePath('/game');
