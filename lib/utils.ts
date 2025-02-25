@@ -22,3 +22,7 @@ export function formatError(error: any) {
       : JSON.stringify(error.message);
   }
 }
+
+export function formatId(id: string) {
+  return `..${id.substring(id.length - 6)}`;
+}

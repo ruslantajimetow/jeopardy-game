@@ -25,8 +25,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { insertUserResultSchema } from '@/lib/validators';
 import { submitResults } from '@/lib/actions/question.action';
 import { ResultQuestion, UserResult } from '@/types';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
+
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 export default function QuestionDialog({
   triggerTitle,
@@ -57,6 +66,8 @@ export default function QuestionDialog({
       score: 0,
     },
   });
+
+  const shuffledAnswers = useMemo(() => shuffleArray(answers), [answers]);
 
   const onSubmit = async () => {
     form.setValue('userId', userId);
@@ -120,7 +131,7 @@ export default function QuestionDialog({
                       value={field.value}
                       className="grid grid-cols-2 space-y-2 mx-auto"
                     >
-                      {answers.map((ans) => {
+                      {shuffledAnswers.map((ans) => {
                         return (
                           <FormItem
                             key={ans}

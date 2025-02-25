@@ -1,6 +1,6 @@
 'use server';
 import { prisma } from '@/db/prisma';
-import { UserResult } from '@/types';
+import { ResultWithTotalScore, UserResult } from '@/types';
 import { formatError } from '../utils';
 import { revalidatePath } from 'next/cache';
 
@@ -41,4 +41,31 @@ export const startNewGame = async (userId: string) => {
       message: formatError(error),
     };
   }
+};
+
+export const getAllResults = async () => {
+  const results = await prisma.result.findMany({
+    select: {
+      id: true,
+      userId: true,
+      questions: true,
+      createdAt: true,
+      user: { select: { name: true } },
+    },
+  });
+
+  if (!results) return;
+
+  const resultsWithTotalScore: ResultWithTotalScore[] = JSON.parse(
+    JSON.stringify(results)
+  ).map((result: UserResult) => {
+    const totalScore = result.questions.reduce((p, c) => p + (c.score || 0), 0);
+    return { ...result, totalScore };
+  });
+
+  const sortedResults = resultsWithTotalScore.sort(
+    (a, b) => b.totalScore - a.totalScore
+  );
+
+  return sortedResults;
 };

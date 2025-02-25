@@ -28,8 +28,13 @@ export const insertResultQuestionsSchema = z.object({
 });
 
 export const insertUserDBResult = z.object({
+  id: z.number(),
   userId: z.string().min(1, 'User id is equired'),
   questions: z.array(insertResultQuestionsSchema),
+});
+
+export const insertResultswithTotalScoreSchema = insertUserDBResult.extend({
+  totalScore: z.number(),
 });
 
 export const signInFormSchema = z.object({
