@@ -82,17 +82,18 @@ export default function QuestionDialog({
       message = `Oops, you gotta learn`;
     }
     const updatedValues = form.getValues();
-    const res = await submitResults(updatedValues);
-    if (!res.success) {
-      toast.error('Something went wrong', {
-        description: res.message,
-        duration: 2000,
+    await submitResults(updatedValues);
+    if (form.getValues('answer') !== correctAnswer) {
+      toast.error('Next time!', {
+        description: message,
+        duration: 4000,
+      });
+    } else {
+      toast.success('Nicely done!', {
+        description: message,
+        duration: 4000,
       });
     }
-    toast.success(res.message, {
-      description: message,
-      duration: 2000,
-    });
     setOpen(false);
     form.setValue('answer', '');
   };

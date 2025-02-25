@@ -40,7 +40,7 @@ export default function RootLayout({
             <Separator />
             <main className="wrapper">{children}</main>
             <Footer />
-            <Toaster />
+            <Toaster position="top-center" richColors />
           </div>
         </ThemeProvider>
       </body>

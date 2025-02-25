@@ -12,9 +12,9 @@ export default function StartNewGame({ userId }: { userId: string }) {
     startTransition(async () => {
       const res = await startNewGame(userId!);
       if (res.success) {
-        toast.success('New game', {
+        toast('New game', {
           description: res.message,
-          duration: 2000,
+          duration: 4000,
         });
       }
     });
