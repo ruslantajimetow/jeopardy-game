@@ -7,6 +7,7 @@ import { JetBrains_Mono } from 'next/font/google';
 import { Separator } from '@/components/ui/separator';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import AnimatedBackground from '@/components/animated-background';
 
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AnimatedBackground />
           <div className="flex flex-col w-screen h-screen">
             <Header />
             <Separator />
