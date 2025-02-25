@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { getAllResults } from '@/lib/actions/result.actions';
-import { cn, formatId } from '@/lib/utils';
+import { formatId } from '@/lib/utils';
 
 export default async function ResultsPage() {
   const results = await getAllResults();
