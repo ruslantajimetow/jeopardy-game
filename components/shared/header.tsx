@@ -19,6 +19,11 @@ export default async function Header() {
           <div>
             <ThemeModeToggle />
           </div>
+          <div>
+            <Button asChild>
+              <Link href="/results">Results</Link>
+            </Button>
+          </div>
           {session?.user ? (
             <>
               <UserButton />

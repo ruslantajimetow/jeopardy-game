@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function middleware(req: any) {
-  const protectedPaths = [/\/game/, /\/results/, /\/user\/(.*)/];
+  const protectedPaths = [/\/game/, /\/user\/(.*)/];
 
   const url = req.nextUrl.clone();
 
